@@ -11,8 +11,6 @@ import NetworkingLayer
 let app = AppContainer()
 
 final class AppContainer {
-    
     let router = AppRouter()
-  //  let service = NetworkingLayer()
-    
+    let service = NetworkingService()
 }

@@ -21,6 +21,9 @@
 		C4DA8D812C74A2EB0064C472 /* CityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */; };
 		C4DA8D862C74A40F0064C472 /* NetworkingLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */; };
 		C4DA8D872C74A40F0064C472 /* NetworkingLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4DA8D9E2C74B7670064C472 /* CityPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D9D2C74B7670064C472 /* CityPresentation.swift */; };
+		C4DA8DA12C74BA720064C472 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C4DA8DA02C74BA720064C472 /* SnapKit */; };
+		C4DA8DA32C74BE3E0064C472 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DA22C74BE3E0064C472 /* CityCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +67,8 @@
 		C4DA8D7E2C74A2D30064C472 /* CityList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CityList.storyboard; sourceTree = "<group>"; };
 		C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewModel.swift; sourceTree = "<group>"; };
 		C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NetworkingLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DA8D9D2C74B7670064C472 /* CityPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityPresentation.swift; sourceTree = "<group>"; };
+		C4DA8DA22C74BE3E0064C472 /* CityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4DA8D862C74A40F0064C472 /* NetworkingLayer.framework in Frameworks */,
+				C4DA8DA12C74BA720064C472 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,10 +169,12 @@
 			isa = PBXGroup;
 			children = (
 				C4DA8D7E2C74A2D30064C472 /* CityList.storyboard */,
+				C4DA8D9D2C74B7670064C472 /* CityPresentation.swift */,
 				C4DA8D7C2C74A2CB0064C472 /* CityListContracts.swift */,
 				C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */,
 				C4DA8D772C74A2AB0064C472 /* CityListViewController.swift */,
 				C4DA8D7A2C74A2C30064C472 /* CityListViewControllerBuilder.swift */,
+				C4DA8DA22C74BE3E0064C472 /* CityCell.swift */,
 			);
 			path = CityList;
 			sourceTree = "<group>";
@@ -196,6 +204,9 @@
 			dependencies = (
 			);
 			name = TravelCostMVVM;
+			packageProductDependencies = (
+				C4DA8DA02C74BA720064C472 /* SnapKit */,
+			);
 			productName = TravelCostMVVM;
 			productReference = C4DA8D3C2C74A22E0064C472 /* TravelCostMVVM.app */;
 			productType = "com.apple.product-type.application";
@@ -246,6 +257,9 @@
 				Base,
 			);
 			mainGroup = C4DA8D332C74A22E0064C472;
+			packageReferences = (
+				C4DA8D9F2C74BA720064C472 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = C4DA8D3D2C74A22E0064C472 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -283,11 +297,13 @@
 			files = (
 				C4DA8D762C74A2970064C472 /* AppRouter.swift in Sources */,
 				C4DA8D402C74A22E0064C472 /* AppDelegate.swift in Sources */,
+				C4DA8DA32C74BE3E0064C472 /* CityCell.swift in Sources */,
 				C4DA8D422C74A22E0064C472 /* SceneDelegate.swift in Sources */,
 				C4DA8D812C74A2EB0064C472 /* CityListViewModel.swift in Sources */,
 				C4DA8D782C74A2AB0064C472 /* CityListViewController.swift in Sources */,
 				C4DA8D7D2C74A2CB0064C472 /* CityListContracts.swift in Sources */,
 				C4DA8D742C74A28B0064C472 /* AppContainer.swift in Sources */,
+				C4DA8D9E2C74B7670064C472 /* CityPresentation.swift in Sources */,
 				C4DA8D7B2C74A2C30064C472 /* CityListViewControllerBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,6 +582,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C4DA8D9F2C74BA720064C472 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4DA8DA02C74BA720064C472 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C4DA8D9F2C74BA720064C472 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C4DA8D342C74A22E0064C472 /* Project object */;
 }
