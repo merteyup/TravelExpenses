@@ -6,13 +6,24 @@
 //
 
 import UIKit
+import NetworkingLayer
 
 final class CityListViewController: UIViewController {
     
-    override func viewDidLoad() {
+    let service = NetworkingService()
+    
+    var viewModel : CityListViewModel! {
+        didSet {
+            // TODO: Don't forget to add self.
+       //     viewModel.delegate = self
+        }
+    }
+        override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
+            
+            service.fetchTopCities { response in }
+            
     }
     
 }

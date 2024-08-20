@@ -12,7 +12,8 @@ final class AppRouter {
     func start(to window: UIWindow?) {
         let viewController = CityListViewControllerBuilder.make()
         let navigationController = UINavigationController(rootViewController: viewController)
-        
+     //   viewController.viewModel =  CityListViewModel(service: app.service)
+        // TODO: Give service as a dependency
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
