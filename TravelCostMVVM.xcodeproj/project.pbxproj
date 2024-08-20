@@ -9,13 +9,18 @@
 /* Begin PBXBuildFile section */
 		C4DA8D402C74A22E0064C472 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D3F2C74A22E0064C472 /* AppDelegate.swift */; };
 		C4DA8D422C74A22E0064C472 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D412C74A22E0064C472 /* SceneDelegate.swift */; };
-		C4DA8D442C74A22E0064C472 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D432C74A22E0064C472 /* ViewController.swift */; };
-		C4DA8D472C74A22E0064C472 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DA8D452C74A22E0064C472 /* Main.storyboard */; };
 		C4DA8D492C74A22F0064C472 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4DA8D482C74A22F0064C472 /* Assets.xcassets */; };
 		C4DA8D4C2C74A22F0064C472 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DA8D4A2C74A22F0064C472 /* LaunchScreen.storyboard */; };
 		C4DA8D572C74A2300064C472 /* TravelCostMVVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D562C74A2300064C472 /* TravelCostMVVMTests.swift */; };
-		C4DA8D612C74A2300064C472 /* TravelCostMVVMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D602C74A2300064C472 /* TravelCostMVVMUITests.swift */; };
-		C4DA8D632C74A2300064C472 /* TravelCostMVVMUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D622C74A2300064C472 /* TravelCostMVVMUITestsLaunchTests.swift */; };
+		C4DA8D742C74A28B0064C472 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D732C74A28B0064C472 /* AppContainer.swift */; };
+		C4DA8D762C74A2970064C472 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D752C74A2970064C472 /* AppRouter.swift */; };
+		C4DA8D782C74A2AB0064C472 /* CityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D772C74A2AB0064C472 /* CityListViewController.swift */; };
+		C4DA8D7B2C74A2C30064C472 /* CityListViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D7A2C74A2C30064C472 /* CityListViewControllerBuilder.swift */; };
+		C4DA8D7D2C74A2CB0064C472 /* CityListContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D7C2C74A2CB0064C472 /* CityListContracts.swift */; };
+		C4DA8D7F2C74A2D30064C472 /* CityList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DA8D7E2C74A2D30064C472 /* CityList.storyboard */; };
+		C4DA8D812C74A2EB0064C472 /* CityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */; };
+		C4DA8D862C74A40F0064C472 /* NetworkingLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */; };
+		C4DA8D872C74A40F0064C472 /* NetworkingLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,29 +31,39 @@
 			remoteGlobalIDString = C4DA8D3B2C74A22E0064C472;
 			remoteInfo = TravelCostMVVM;
 		};
-		C4DA8D5D2C74A2300064C472 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4DA8D342C74A22E0064C472 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C4DA8D3B2C74A22E0064C472;
-			remoteInfo = TravelCostMVVM;
-		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C4DA8D882C74A40F0064C472 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4DA8D872C74A40F0064C472 /* NetworkingLayer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C4DA8D3C2C74A22E0064C472 /* TravelCostMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelCostMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DA8D3F2C74A22E0064C472 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4DA8D412C74A22E0064C472 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C4DA8D432C74A22E0064C472 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C4DA8D462C74A22E0064C472 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4DA8D482C74A22F0064C472 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4DA8D4B2C74A22F0064C472 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4DA8D4D2C74A22F0064C472 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4DA8D522C74A2300064C472 /* TravelCostMVVMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelCostMVVMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DA8D562C74A2300064C472 /* TravelCostMVVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCostMVVMTests.swift; sourceTree = "<group>"; };
-		C4DA8D5C2C74A2300064C472 /* TravelCostMVVMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelCostMVVMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4DA8D602C74A2300064C472 /* TravelCostMVVMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCostMVVMUITests.swift; sourceTree = "<group>"; };
-		C4DA8D622C74A2300064C472 /* TravelCostMVVMUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCostMVVMUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C4DA8D732C74A28B0064C472 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
+		C4DA8D752C74A2970064C472 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		C4DA8D772C74A2AB0064C472 /* CityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewController.swift; sourceTree = "<group>"; };
+		C4DA8D7A2C74A2C30064C472 /* CityListViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewControllerBuilder.swift; sourceTree = "<group>"; };
+		C4DA8D7C2C74A2CB0064C472 /* CityListContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListContracts.swift; sourceTree = "<group>"; };
+		C4DA8D7E2C74A2D30064C472 /* CityList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CityList.storyboard; sourceTree = "<group>"; };
+		C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewModel.swift; sourceTree = "<group>"; };
+		C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NetworkingLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,17 +71,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4DA8D862C74A40F0064C472 /* NetworkingLayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C4DA8D4F2C74A2300064C472 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C4DA8D592C74A2300064C472 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -81,8 +90,8 @@
 			children = (
 				C4DA8D3E2C74A22E0064C472 /* TravelCostMVVM */,
 				C4DA8D552C74A2300064C472 /* TravelCostMVVMTests */,
-				C4DA8D5F2C74A2300064C472 /* TravelCostMVVMUITests */,
 				C4DA8D3D2C74A22E0064C472 /* Products */,
+				C4DA8D842C74A40F0064C472 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,7 +100,6 @@
 			children = (
 				C4DA8D3C2C74A22E0064C472 /* TravelCostMVVM.app */,
 				C4DA8D522C74A2300064C472 /* TravelCostMVVMTests.xctest */,
-				C4DA8D5C2C74A2300064C472 /* TravelCostMVVMUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,12 +107,10 @@
 		C4DA8D3E2C74A22E0064C472 /* TravelCostMVVM */ = {
 			isa = PBXGroup;
 			children = (
-				C4DA8D3F2C74A22E0064C472 /* AppDelegate.swift */,
-				C4DA8D412C74A22E0064C472 /* SceneDelegate.swift */,
-				C4DA8D432C74A22E0064C472 /* ViewController.swift */,
-				C4DA8D452C74A22E0064C472 /* Main.storyboard */,
-				C4DA8D482C74A22F0064C472 /* Assets.xcassets */,
-				C4DA8D4A2C74A22F0064C472 /* LaunchScreen.storyboard */,
+				C4DA8D6F2C74A2440064C472 /* App */,
+				C4DA8D702C74A25C0064C472 /* Scenes */,
+				C4DA8D712C74A26A0064C472 /* Resources */,
+				C4DA8D722C74A2730064C472 /* SupportingFiles */,
 				C4DA8D4D2C74A22F0064C472 /* Info.plist */,
 			);
 			path = TravelCostMVVM;
@@ -118,13 +124,59 @@
 			path = TravelCostMVVMTests;
 			sourceTree = "<group>";
 		};
-		C4DA8D5F2C74A2300064C472 /* TravelCostMVVMUITests */ = {
+		C4DA8D6F2C74A2440064C472 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				C4DA8D602C74A2300064C472 /* TravelCostMVVMUITests.swift */,
-				C4DA8D622C74A2300064C472 /* TravelCostMVVMUITestsLaunchTests.swift */,
+				C4DA8D3F2C74A22E0064C472 /* AppDelegate.swift */,
+				C4DA8D412C74A22E0064C472 /* SceneDelegate.swift */,
+				C4DA8D732C74A28B0064C472 /* AppContainer.swift */,
+				C4DA8D752C74A2970064C472 /* AppRouter.swift */,
 			);
-			path = TravelCostMVVMUITests;
+			path = App;
+			sourceTree = "<group>";
+		};
+		C4DA8D702C74A25C0064C472 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA8D792C74A2B00064C472 /* CityList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		C4DA8D712C74A26A0064C472 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA8D482C74A22F0064C472 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C4DA8D722C74A2730064C472 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA8D4A2C74A22F0064C472 /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C4DA8D792C74A2B00064C472 /* CityList */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA8D7E2C74A2D30064C472 /* CityList.storyboard */,
+				C4DA8D7C2C74A2CB0064C472 /* CityListContracts.swift */,
+				C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */,
+				C4DA8D772C74A2AB0064C472 /* CityListViewController.swift */,
+				C4DA8D7A2C74A2C30064C472 /* CityListViewControllerBuilder.swift */,
+			);
+			path = CityList;
+			sourceTree = "<group>";
+		};
+		C4DA8D842C74A40F0064C472 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +189,7 @@
 				C4DA8D382C74A22E0064C472 /* Sources */,
 				C4DA8D392C74A22E0064C472 /* Frameworks */,
 				C4DA8D3A2C74A22E0064C472 /* Resources */,
+				C4DA8D882C74A40F0064C472 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -165,24 +218,6 @@
 			productReference = C4DA8D522C74A2300064C472 /* TravelCostMVVMTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C4DA8D5B2C74A2300064C472 /* TravelCostMVVMUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C4DA8D6C2C74A2300064C472 /* Build configuration list for PBXNativeTarget "TravelCostMVVMUITests" */;
-			buildPhases = (
-				C4DA8D582C74A2300064C472 /* Sources */,
-				C4DA8D592C74A2300064C472 /* Frameworks */,
-				C4DA8D5A2C74A2300064C472 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C4DA8D5E2C74A2300064C472 /* PBXTargetDependency */,
-			);
-			name = TravelCostMVVMUITests;
-			productName = TravelCostMVVMUITests;
-			productReference = C4DA8D5C2C74A2300064C472 /* TravelCostMVVMUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,10 +232,6 @@
 						CreatedOnToolsVersion = 15.2;
 					};
 					C4DA8D512C74A2300064C472 = {
-						CreatedOnToolsVersion = 15.2;
-						TestTargetID = C4DA8D3B2C74A22E0064C472;
-					};
-					C4DA8D5B2C74A2300064C472 = {
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = C4DA8D3B2C74A22E0064C472;
 					};
@@ -221,7 +252,6 @@
 			targets = (
 				C4DA8D3B2C74A22E0064C472 /* TravelCostMVVM */,
 				C4DA8D512C74A2300064C472 /* TravelCostMVVMTests */,
-				C4DA8D5B2C74A2300064C472 /* TravelCostMVVMUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,18 +263,11 @@
 			files = (
 				C4DA8D4C2C74A22F0064C472 /* LaunchScreen.storyboard in Resources */,
 				C4DA8D492C74A22F0064C472 /* Assets.xcassets in Resources */,
-				C4DA8D472C74A22E0064C472 /* Main.storyboard in Resources */,
+				C4DA8D7F2C74A2D30064C472 /* CityList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C4DA8D502C74A2300064C472 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C4DA8D5A2C74A2300064C472 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -258,9 +281,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4DA8D442C74A22E0064C472 /* ViewController.swift in Sources */,
+				C4DA8D762C74A2970064C472 /* AppRouter.swift in Sources */,
 				C4DA8D402C74A22E0064C472 /* AppDelegate.swift in Sources */,
 				C4DA8D422C74A22E0064C472 /* SceneDelegate.swift in Sources */,
+				C4DA8D812C74A2EB0064C472 /* CityListViewModel.swift in Sources */,
+				C4DA8D782C74A2AB0064C472 /* CityListViewController.swift in Sources */,
+				C4DA8D7D2C74A2CB0064C472 /* CityListContracts.swift in Sources */,
+				C4DA8D742C74A28B0064C472 /* AppContainer.swift in Sources */,
+				C4DA8D7B2C74A2C30064C472 /* CityListViewControllerBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,15 +300,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C4DA8D582C74A2300064C472 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C4DA8D612C74A2300064C472 /* TravelCostMVVMUITests.swift in Sources */,
-				C4DA8D632C74A2300064C472 /* TravelCostMVVMUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -289,22 +308,9 @@
 			target = C4DA8D3B2C74A22E0064C472 /* TravelCostMVVM */;
 			targetProxy = C4DA8D532C74A2300064C472 /* PBXContainerItemProxy */;
 		};
-		C4DA8D5E2C74A2300064C472 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C4DA8D3B2C74A22E0064C472 /* TravelCostMVVM */;
-			targetProxy = C4DA8D5D2C74A2300064C472 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C4DA8D452C74A22E0064C472 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C4DA8D462C74A22E0064C472 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C4DA8D4A2C74A22F0064C472 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -447,7 +453,6 @@
 				INFOPLIST_FILE = TravelCostMVVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,7 +480,6 @@
 				INFOPLIST_FILE = TravelCostMVVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -531,42 +535,6 @@
 			};
 			name = Release;
 		};
-		C4DA8D6D2C74A2300064C472 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZNPQPP89HM;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.TravelCostMVVMUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TravelCostMVVM;
-			};
-			name = Debug;
-		};
-		C4DA8D6E2C74A2300064C472 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZNPQPP89HM;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.TravelCostMVVMUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TravelCostMVVM;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -593,15 +561,6 @@
 			buildConfigurations = (
 				C4DA8D6A2C74A2300064C472 /* Debug */,
 				C4DA8D6B2C74A2300064C472 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C4DA8D6C2C74A2300064C472 /* Build configuration list for PBXNativeTarget "TravelCostMVVMUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C4DA8D6D2C74A2300064C472 /* Debug */,
-				C4DA8D6E2C74A2300064C472 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
