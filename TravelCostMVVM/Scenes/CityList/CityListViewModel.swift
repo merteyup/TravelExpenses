@@ -25,7 +25,7 @@ final class CityListViewModel: CityListViewModelProtocol {
             switch result {
             case .success(let success):
                 let cityPresentations = success.cities.map { city in
-                    CityPresentation(title: city.cityName)
+                    CityPresentation(city: city)
                 }
                 notify(.showCityList(cityPresentations))
             case .failure(let _):
