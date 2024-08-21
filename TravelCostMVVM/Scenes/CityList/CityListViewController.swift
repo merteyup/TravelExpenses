@@ -17,6 +17,7 @@ final class CityListViewController: UIViewController {
         }
     }
     private var filteredCities: [CityPresentation] = []
+    private var isSearching = false
     var viewModel: CityListViewModel! {
         didSet {
             viewModel.delegate = self
@@ -32,7 +33,7 @@ final class CityListViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
-        viewModel.load()
+        viewModel.loadCities()
     }
     
     // MARK: - Setup Methods
@@ -83,8 +84,7 @@ extension CityListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath) as! CityCell
         let city = filteredCities[indexPath.row]
         cell.backgroundColor = .yellow
-        cell.textLabel?.text = city.name
-        cell.detailTextLabel?.text = city.countryName
+        cell.configure(with: city)
         return cell
     }
 }
@@ -92,26 +92,57 @@ extension CityListViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension CityListViewController: UITableViewDelegate {
-    // Handle row selection and other delegate methods if needed
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index: Int
+        if isSearching {
+            let filteredCity = filteredCities[indexPath.row]
+            guard let originalIndex = originalIndex(for: filteredCity) else {
+                return
+            }
+            index = originalIndex
+        } else {
+            index = indexPath.row
+        }
+        viewModel.selectCity(at: index)
+    }
+    private func originalIndex(for filteredCity: CityPresentation) -> Int? {
+        return cities.firstIndex(where: { $0 == filteredCity })
+    }
 }
 
 // MARK: - UISearchBarDelegate
 
 extension CityListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isSearching = !searchText.isEmpty
         filterCities(for: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
+        searchBar.text = ""
+        filterCities(for: "")
+        searchBar.resignFirstResponder()
     }
 }
 
 // MARK: - CityListViewModelDelegate
 
 extension CityListViewController: CityListViewModelDelegate {
+    func navigate(to route: CityListViewRoute) {
+        switch route {
+        case .detail(let cityDetailViewModelProtocol):
+            let cityDetailViewController = CityDetailBuilder.make(viewModel: cityDetailViewModelProtocol)
+            show(cityDetailViewController, sender: nil)
+        }
+    }
+    
     func handleViewModelOutput(_ output: CityListViewModelOutput) {
         switch output {
         case .updateTitle(let string):
             self.title = string
         case .setLoading(let bool):
-            print(bool)
+            bool ? view.showLoading() : view.hideLoading()
         case .showCityList(let cities):
             self.cities = cities
             tableView.reloadData()

@@ -12,13 +12,13 @@ final class CityListViewModel: CityListViewModelProtocol {
     
     weak var delegate: CityListViewModelDelegate?
     private let service: NetworkingService
-    private var cities: [City] = []
+    private var cities: [CityPresentation] = []
     
     init(service: NetworkingService) {
         self.service = service
     }
 
-    func load() {
+    func loadCities() {
         notify(.setLoading(true))
         service.fetchTopCities { [weak self] result in
             guard let self else { return }
@@ -26,14 +26,22 @@ final class CityListViewModel: CityListViewModelProtocol {
             case .success(let success):
                 let cityPresentations = success.cities.map { city in
                     CityPresentation(city: city)
-                }
+                }.sorted(by: {$0.name < $1.name})
+                cities = cityPresentations
                 notify(.showCityList(cityPresentations))
-            case .failure(let _):
+            case .failure:
                 break
             }
             notify(.setLoading(false))
         }
     }
+    
+    func selectCity(at index: Int) {
+        let city = cities[index]
+        let viewModel = CityDetailViewModel(city: city)
+        delegate?.navigate(to: .detail(viewModel))
+    }
+    
     
     private func notify(_ output: CityListViewModelOutput) {
         delegate?.handleViewModelOutput(output)

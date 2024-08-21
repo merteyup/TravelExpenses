@@ -9,8 +9,8 @@ import Foundation
 
 protocol CityListViewModelProtocol: AnyObject {
     var delegate: CityListViewModelDelegate? { get set }
-    func load()
-   // func selectPodcast(at index: Int)
+    func loadCities()
+    func selectCity(at index: Int)
 }
 
 enum CityListViewModelOutput: Equatable {
@@ -19,6 +19,12 @@ enum CityListViewModelOutput: Equatable {
     case showCityList([CityPresentation])
 }
 
+enum CityListViewRoute {
+    case detail(CityDetailViewModelProtocol)
+}
+
+
 protocol CityListViewModelDelegate: AnyObject {
     func handleViewModelOutput(_ output: CityListViewModelOutput)
+    func navigate(to route: CityListViewRoute)
 }
