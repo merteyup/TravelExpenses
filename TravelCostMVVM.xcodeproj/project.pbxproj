@@ -36,6 +36,8 @@
 		C4DA8DBC2C7545550064C472 /* CityDetailHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DBB2C7545550064C472 /* CityDetailHeaderCell.swift */; };
 		C4DA8DF82C75F3560064C472 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DF62C75F3560064C472 /* DataModel.xcdatamodeld */; };
 		C4DA8DFF2C75F5750064C472 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */; };
+		C4DA8E012C760DC20064C472 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E002C760DC20064C472 /* CoreDataService.swift */; };
+		C4DA8E032C760E4F0064C472 /* SynchronizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E022C760E4F0064C472 /* SynchronizationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		C4DA8DBB2C7545550064C472 /* CityDetailHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailHeaderCell.swift; sourceTree = "<group>"; };
 		C4DA8DF72C75F3560064C472 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		C4DA8E002C760DC20064C472 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		C4DA8E022C760E4F0064C472 /* SynchronizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +255,8 @@
 			children = (
 				C4DA8DF62C75F3560064C472 /* DataModel.xcdatamodeld */,
 				C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */,
+				C4DA8E002C760DC20064C472 /* CoreDataService.swift */,
+				C4DA8E022C760E4F0064C472 /* SynchronizationService.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -370,8 +376,10 @@
 				C4DA8D402C74A22E0064C472 /* AppDelegate.swift in Sources */,
 				C4DA8DBC2C7545550064C472 /* CityDetailHeaderCell.swift in Sources */,
 				C4DA8DA62C74CFA50064C472 /* UIView+LoadingIndicator.swift in Sources */,
+				C4DA8E032C760E4F0064C472 /* SynchronizationService.swift in Sources */,
 				C4DA8DA32C74BE3E0064C472 /* CityCell.swift in Sources */,
 				C4DA8D422C74A22E0064C472 /* SceneDelegate.swift in Sources */,
+				C4DA8E012C760DC20064C472 /* CoreDataService.swift in Sources */,
 				C4DA8DB42C74D73A0064C472 /* CityDetailBuilder.swift in Sources */,
 				C4DA8D812C74A2EB0064C472 /* CityListViewModel.swift in Sources */,
 				C4DA8D782C74A2AB0064C472 /* CityListViewController.swift in Sources */,

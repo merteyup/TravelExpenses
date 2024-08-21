@@ -33,8 +33,7 @@ final class CityListViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
-      //  viewModel.loadCities()
-        viewModel.getCitiesFromCoreData()
+        viewModel.loadCities()
     }
     
     // MARK: - Setup Methods

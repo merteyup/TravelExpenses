@@ -7,10 +7,22 @@
 
 import Foundation
 import NetworkingLayer
-
-let app = AppContainer()
+import CoreData
 
 final class AppContainer {
-    let router = AppRouter()
-    let service = NetworkingService()
+    let router: AppRouter
+    let service: NetworkingService
+    let coreData: CoreDataService
+    let synchronizationService: SynchronizationService
+
+    init(managedContext: NSManagedObjectContext) {
+        self.router = AppRouter()
+        self.service = NetworkingService()
+        self.coreData = CoreDataService(context: managedContext)
+        self.synchronizationService = SynchronizationService(networkingService: self.service,
+                                                            coreDataService: self.coreData)
+    }
 }
+
+let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+let app = AppContainer(managedContext: managedContext)

@@ -12,7 +12,7 @@ final class AppRouter {
     func start(to window: UIWindow?) {
         let viewController = CityListViewControllerBuilder.make()
         let navigationController = UINavigationController(rootViewController: viewController)
-        viewController.viewModel =  CityListViewModel(service: app.service)
+        viewController.viewModel =  CityListViewModel(synchronizationService: app.synchronizationService)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
