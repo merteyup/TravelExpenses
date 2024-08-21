@@ -16,6 +16,7 @@ class CityPresentation: Equatable {
     let longitude: Double
     let stateCode: String?
     
+    //MARK: - Remote Resource Initializer
     init(city: City) {
         self.cityId = city.cityId
         self.name = city.cityName
@@ -23,6 +24,16 @@ class CityPresentation: Equatable {
         self.latitude = city.lat
         self.longitude = city.lng
         self.stateCode = city.stateCode
+    }
+    
+    //MARK: - CoreData Initializer
+    init(cityModel: CityModel) {
+        self.cityId = Int(cityModel.cityId)
+        self.name = cityModel.name ?? "Unknown"
+        self.countryName = cityModel.countryName ?? "Unknown"
+        self.latitude = cityModel.latitude
+        self.longitude = cityModel.longitude
+        self.stateCode = cityModel.stateCode
     }
     
     static func == (lhs: CityPresentation, rhs: CityPresentation) -> Bool {

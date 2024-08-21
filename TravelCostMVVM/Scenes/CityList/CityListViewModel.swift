@@ -49,13 +49,33 @@ final class CityListViewModel: CityListViewModelProtocol {
         delegate?.handleViewModelOutput(output)
     }
     
+    
+    //MARK: - Core Data Operations
+    
     func saveCities(from response: CitiesResponse) {
         let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
         for cityData in response.cities {
             let city = CityModel(context: managedContext)
-            city.cityName = cityData.cityName
+            city.name = cityData.cityName
             city.countryName = cityData.countryName
         }
         AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
     }
+    
+    func getCitiesFromCoreData() {
+        let cityFetchRequest: NSFetchRequest<CityModel> = CityModel.fetchRequest()
+        let sortByName = NSSortDescriptor(key: #keyPath(CityModel.name), ascending: true)
+        cityFetchRequest.sortDescriptors = [sortByName]
+        do {
+            let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+            let results = try managedContext.fetch(cityFetchRequest)
+            let cityPresentations = results.map { cityResponse in
+                CityPresentation(cityModel: cityResponse)
+            }.sorted(by: {$0.name < $1.name})
+            notify(.showCityList(cityPresentations))
+        } catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
+    }
+    
 }
