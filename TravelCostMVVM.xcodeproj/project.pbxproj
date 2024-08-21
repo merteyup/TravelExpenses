@@ -34,6 +34,8 @@
 		C4DA8DB82C75434B0064C472 /* CityDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DB72C75434B0064C472 /* CityDetailCell.swift */; };
 		C4DA8DBA2C7543570064C472 /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DB92C7543570064C472 /* EmptyCell.swift */; };
 		C4DA8DBC2C7545550064C472 /* CityDetailHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DBB2C7545550064C472 /* CityDetailHeaderCell.swift */; };
+		C4DA8DF82C75F3560064C472 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DF62C75F3560064C472 /* DataModel.xcdatamodeld */; };
+		C4DA8DFF2C75F5750064C472 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		C4DA8DB72C75434B0064C472 /* CityDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailCell.swift; sourceTree = "<group>"; };
 		C4DA8DB92C7543570064C472 /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		C4DA8DBB2C7545550064C472 /* CityDetailHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailHeaderCell.swift; sourceTree = "<group>"; };
+		C4DA8DF72C75F3560064C472 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 		C4DA8D712C74A26A0064C472 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C4DA8DFD2C75F56B0064C472 /* CoreData */,
 				C4DA8D482C74A22F0064C472 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -239,6 +244,15 @@
 				C4DA8DBB2C7545550064C472 /* CityDetailHeaderCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		C4DA8DFD2C75F56B0064C472 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA8DF62C75F3560064C472 /* DataModel.xcdatamodeld */,
+				C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,7 +364,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4DA8DFF2C75F5750064C472 /* CoreDataStack.swift in Sources */,
 				C4DA8D762C74A2970064C472 /* AppRouter.swift in Sources */,
+				C4DA8DF82C75F3560064C472 /* DataModel.xcdatamodeld in Sources */,
 				C4DA8D402C74A22E0064C472 /* AppDelegate.swift in Sources */,
 				C4DA8DBC2C7545550064C472 /* CityDetailHeaderCell.swift in Sources */,
 				C4DA8DA62C74CFA50064C472 /* UIView+LoadingIndicator.swift in Sources */,
@@ -665,6 +681,19 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		C4DA8DF62C75F3560064C472 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C4DA8DF72C75F3560064C472 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = C4DA8DF72C75F3560064C472 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C4DA8D342C74A22E0064C472 /* Project object */;
 }

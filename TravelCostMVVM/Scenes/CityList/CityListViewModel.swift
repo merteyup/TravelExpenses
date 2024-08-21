@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkingLayer
+import CoreData
 
 final class CityListViewModel: CityListViewModelProtocol {
     
@@ -17,17 +18,18 @@ final class CityListViewModel: CityListViewModelProtocol {
     init(service: NetworkingService) {
         self.service = service
     }
-
+    
     func loadCities() {
         notify(.setLoading(true))
         service.fetchTopCities { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let success):
-                let cityPresentations = success.cities.map { city in
-                    CityPresentation(city: city)
+                let cityPresentations = success.cities.map { cityResponse in
+                    CityPresentation(city: cityResponse)
                 }.sorted(by: {$0.name < $1.name})
                 cities = cityPresentations
+                saveCities(from: success)
                 notify(.showCityList(cityPresentations))
             case .failure:
                 break
@@ -45,5 +47,15 @@ final class CityListViewModel: CityListViewModelProtocol {
     
     private func notify(_ output: CityListViewModelOutput) {
         delegate?.handleViewModelOutput(output)
+    }
+    
+    func saveCities(from response: CitiesResponse) {
+        let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+        for cityData in response.cities {
+            let city = CityModel(context: managedContext)
+            city.cityName = cityData.cityName
+            city.countryName = cityData.countryName
+        }
+        AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
     }
 }
