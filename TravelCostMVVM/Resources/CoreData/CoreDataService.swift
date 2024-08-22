@@ -8,7 +8,14 @@
 import CoreData
 import Foundation
 
-class CoreDataService {
+protocol CoreDataServiceProtocol: AnyObject {
+    func saveCitiesToCoreData(from cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void)
+    func removeCitiesFromCoreData(_ cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void)
+    func fetchCitiesFromCoreData() -> [CityModel]?
+    func updateCityOnCoreData(_ existingCity: CityModel, with newCityData: CityModel)
+}
+
+class CoreDataService: CoreDataServiceProtocol {
     let context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
@@ -17,7 +24,7 @@ class CoreDataService {
     
     //MARK: - Core Data Operations
     
-    func saveCities(from cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveCitiesToCoreData(from cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void) {
         let managedContext = self.context
         
         let existingCities = fetchCitiesFromCoreData() ?? []
@@ -25,7 +32,7 @@ class CoreDataService {
         
         for cityData in cities {
             if let existingCity = existingCityDict[cityData.cityId] {
-                updateCity(existingCity, with: cityData)
+                updateCityOnCoreData(existingCity, with: cityData)
             } else {
                 let city = CityModel(context: managedContext)
                 city.cityId = cityData.cityId
@@ -38,6 +45,22 @@ class CoreDataService {
         }
         
         do {
+            try managedContext.save()
+            completion(.success(()))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func removeCitiesFromCoreData(_ cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void) {
+        let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+        
+        let fetchRequest: NSFetchRequest<CityModel> = CityModel.fetchRequest()
+        do {
+            let allCities = try managedContext.fetch(fetchRequest)
+            for city in allCities where cities.contains(where: { $0.cityId == city.cityId }) {
+                managedContext.delete(city)
+            }
             try managedContext.save()
             completion(.success(()))
         } catch {
@@ -58,28 +81,12 @@ class CoreDataService {
         }
     }
     
-    private func updateCity(_ existingCity: CityModel, with newCityData: CityModel) {
+    func updateCityOnCoreData(_ existingCity: CityModel, with newCityData: CityModel) {
         existingCity.name = newCityData.name
         existingCity.countryName = newCityData.countryName
         existingCity.latitude = newCityData.latitude
         existingCity.longitude = newCityData.longitude
         existingCity.stateCode = newCityData.stateCode
-    }
-    
-    func deleteCities(_ cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void) {
-        let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
-        
-        let fetchRequest: NSFetchRequest<CityModel> = CityModel.fetchRequest()
-        do {
-            let allCities = try managedContext.fetch(fetchRequest)
-            for city in allCities where cities.contains(where: { $0.cityId == city.cityId }) {
-                managedContext.delete(city)
-            }
-            try managedContext.save()
-            completion(.success(()))
-        } catch {
-            completion(.failure(error))
-        }
     }
 }
 

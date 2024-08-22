@@ -8,11 +8,11 @@
 import UIKit
 
 final class AppRouter {
-    
     func start(to window: UIWindow?) {
         let viewController = CityListViewControllerBuilder.make()
         let navigationController = UINavigationController(rootViewController: viewController)
-        viewController.viewModel =  CityListViewModel(synchronizationService: app.synchronizationService)
+        viewController.viewModel =  CityListViewModel(networkingService: app.service, 
+                                                      coreDataService: app.coreData)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
