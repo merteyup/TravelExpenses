@@ -65,7 +65,7 @@ final class CityListViewModel: CityListViewModelProtocol {
     
     private func convertCitiesResponseToCityModels(_ response: CitiesResponse) -> [CityModel] {
         return response.cities.map { city in
-            let cityModel = CityModel(context: app.coreData.context)
+            let cityModel = CityModel(context: managedContext)
             cityModel.cityId = Int32(city.cityId)
             cityModel.name = city.cityName
             cityModel.countryName = city.countryName
