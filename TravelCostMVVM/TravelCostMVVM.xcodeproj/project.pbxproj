@@ -37,6 +37,7 @@
 		C4DA8DF82C75F3560064C472 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DF62C75F3560064C472 /* DataModel.xcdatamodeld */; };
 		C4DA8DFF2C75F5750064C472 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */; };
 		C4DA8E012C760DC20064C472 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E002C760DC20064C472 /* CoreDataService.swift */; };
+		C4DA8E0B2C7770460064C472 /* CityModel+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E0A2C7770460064C472 /* CityModel+Conversion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		C4DA8DF72C75F3560064C472 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C4DA8E002C760DC20064C472 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		C4DA8E0A2C7770460064C472 /* CityModel+Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CityModel+Conversion.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +256,7 @@
 				C4DA8DF62C75F3560064C472 /* DataModel.xcdatamodeld */,
 				C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */,
 				C4DA8E002C760DC20064C472 /* CoreDataService.swift */,
+				C4DA8E0A2C7770460064C472 /* CityModel+Conversion.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4DA8E0B2C7770460064C472 /* CityModel+Conversion.swift in Sources */,
 				C4DA8DFF2C75F5750064C472 /* CoreDataStack.swift in Sources */,
 				C4DA8D762C74A2970064C472 /* AppRouter.swift in Sources */,
 				C4DA8DF82C75F3560064C472 /* DataModel.xcdatamodeld in Sources */,
