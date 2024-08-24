@@ -38,6 +38,8 @@
 		C4DA8DFF2C75F5750064C472 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */; };
 		C4DA8E012C760DC20064C472 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E002C760DC20064C472 /* CoreDataService.swift */; };
 		C4DA8E0B2C7770460064C472 /* CityModel+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E0A2C7770460064C472 /* CityModel+Conversion.swift */; };
+		C4DA8E0E2C7A03190064C472 /* CitiesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E0D2C7A03190064C472 /* CitiesResponse.swift */; };
+		C4DA8E102C7A03420064C472 /* PriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA8E0F2C7A03420064C472 /* PriceResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		C4DA8DFE2C75F5750064C472 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C4DA8E002C760DC20064C472 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		C4DA8E0A2C7770460064C472 /* CityModel+Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CityModel+Conversion.swift"; sourceTree = "<group>"; };
+		C4DA8E0D2C7A03190064C472 /* CitiesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitiesResponse.swift; sourceTree = "<group>"; };
+		C4DA8E0F2C7A03420064C472 /* PriceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +185,7 @@
 		C4DA8D712C74A26A0064C472 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C4DA8E0C2C7A03060064C472 /* Models */,
 				C4DA8DFD2C75F56B0064C472 /* CoreData */,
 				C4DA8D482C74A22F0064C472 /* Assets.xcassets */,
 			);
@@ -259,6 +264,15 @@
 				C4DA8E0A2C7770460064C472 /* CityModel+Conversion.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		C4DA8E0C2C7A03060064C472 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA8E0D2C7A03190064C472 /* CitiesResponse.swift */,
+				C4DA8E0F2C7A03420064C472 /* PriceResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,11 +399,13 @@
 				C4DA8D782C74A2AB0064C472 /* CityListViewController.swift in Sources */,
 				C4DA8D7D2C74A2CB0064C472 /* CityListContracts.swift in Sources */,
 				C4DA8D742C74A28B0064C472 /* AppContainer.swift in Sources */,
+				C4DA8E0E2C7A03190064C472 /* CitiesResponse.swift in Sources */,
 				C4DA8DB82C75434B0064C472 /* CityDetailCell.swift in Sources */,
 				C4DA8D9E2C74B7670064C472 /* CityPresentation.swift in Sources */,
 				C4DA8DB02C74D7210064C472 /* CityDetailViewController.swift in Sources */,
 				C4DA8DAE2C74D7090064C472 /* CityDetailContracts.swift in Sources */,
 				C4DA8DB22C74D72E0064C472 /* CityDetailViewModel.swift in Sources */,
+				C4DA8E102C7A03420064C472 /* PriceResponse.swift in Sources */,
 				C4DA8D7B2C74A2C30064C472 /* CityListViewControllerBuilder.swift in Sources */,
 				C4DA8DAB2C74D6E80064C472 /* CityDetailPresentation.swift in Sources */,
 				C4DA8DBA2C7543570064C472 /* EmptyCell.swift in Sources */,

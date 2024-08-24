@@ -26,7 +26,7 @@ final class CityListViewModel: CityListViewModelProtocol {
     //MARK: - Delegate Functions
     func loadCities() {
         notify(.setLoading(true))
-        networkingService.fetchTopCities { [weak self] result in
+        networkingService.fetch(from: .cities, responseType: CitiesResponse.self) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let success):
@@ -39,9 +39,7 @@ final class CityListViewModel: CityListViewModelProtocol {
                 notify(.showCityList(cityPresentations))
             case .failure:
                 fetchCitiesFromCoreData()
-                cities.isEmpty ? notify(
-                    .showEmptyList("The city list is empty. Please try again later.")) : notify(.showCityList(cities)
-                    )
+                cities.isEmpty ? notify(.showEmptyList("The city list is empty. Please try again later.")) : notify(.showCityList(cities))
                 break
             }
             notify(.setLoading(false))
