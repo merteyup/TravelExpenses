@@ -17,6 +17,7 @@ enum CityListViewModelOutput: Equatable {
     case updateTitle(String)
     case setLoading(Bool)
     case showCityList([CityPresentation])
+    case showEmptyList(String)
 }
 
 enum CityListViewRoute {

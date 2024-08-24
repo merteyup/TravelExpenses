@@ -146,6 +146,9 @@ extension CityListViewController: CityListViewModelDelegate {
         case .showCityList(let cities):
             self.cities = cities
             tableView.reloadData()
+        case .showEmptyList(_):
+            // TODO: Add a label to show empty list warning or show UIAlertController to notify user.
+            break
         }
     }
 }

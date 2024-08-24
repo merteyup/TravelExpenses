@@ -11,8 +11,8 @@ import CoreData
 
 final class AppContainer {
     let router: AppRouter
-    let service: NetworkingService
-    let coreData: CoreDataService
+    let service: NetworkingServiceProtocol
+    let coreData: CoreDataServiceProtocol
 
     init(managedContext: NSManagedObjectContext) {
         self.router = AppRouter()
@@ -21,5 +21,4 @@ final class AppContainer {
     }
 }
 
-let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
-let app = AppContainer(managedContext: managedContext)
+let app = AppContainer(managedContext: AppDelegate.sharedAppDelegate.coreDataStack.managedContext)

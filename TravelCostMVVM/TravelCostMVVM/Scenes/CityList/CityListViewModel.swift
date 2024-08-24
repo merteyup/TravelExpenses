@@ -35,8 +35,13 @@ final class CityListViewModel: CityListViewModelProtocol {
                     )}.sorted(by: {$0.name < $1.name})
                 cities = cityPresentations
                 saveCitiesToCoreData(cities: cities)
+                let cityModels = coreDataService.fetchCitiesFromCoreData()
                 notify(.showCityList(cityPresentations))
             case .failure:
+                fetchCitiesFromCoreData()
+                cities.isEmpty ? notify(
+                    .showEmptyList("The city list is empty. Please try again later.")) : notify(.showCityList(cities)
+                    )
                 break
             }
             notify(.setLoading(false))
@@ -55,8 +60,19 @@ final class CityListViewModel: CityListViewModelProtocol {
     
     //MARK: - Core Data
     private func saveCitiesToCoreData(cities: [CityPresentation]) {
-        let cityModels = CityModel.from(cityPresentations: cities, context: managedContext)
+        let cityModels = CityModel.from(cityPresentations: cities, context: AppDelegate.sharedAppDelegate.coreDataStack.managedContext)
         coreDataService.saveCitiesToCoreData(from: cityModels) { _ in }
+    }
+    
+    @discardableResult
+    private func fetchCitiesFromCoreData() -> [CityPresentation] {
+        let cityModels = coreDataService.fetchCitiesFromCoreData()
+        cities.removeAll()
+        cityModels?.forEach({ cityModel in
+            let cityPresentation = CityPresentation(cityModel: cityModel)
+            cities.append(cityPresentation)
+        })
+        return cities
     }
    
 }
