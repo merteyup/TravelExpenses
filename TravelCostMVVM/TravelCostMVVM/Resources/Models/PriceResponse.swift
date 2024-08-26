@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PriceResponse: Codable {
+public struct PriceResponse: Decodable {
    public let cityId: Int?
    public let cityName: String?
    public let stateCode: String?
@@ -29,12 +29,12 @@ public struct PriceResponse: Codable {
     }
 }
 
-public struct ExchangeRatesUpdated: Codable {
+public struct ExchangeRatesUpdated: Decodable {
    public let date: String
    public let timestamp: Int
 }
 
-public struct Price: Codable {
+public struct Price: Decodable {
   public let goodId: Int?
   public let itemName: String?
   public let categoryId: Int?
@@ -60,7 +60,7 @@ public struct Price: Codable {
     }
 }
 
-public struct PriceUSD: Codable {
+public struct PriceUSD: Decodable {
    public let min: String
    public let avg: String
    public let max: String
