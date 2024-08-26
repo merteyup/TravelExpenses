@@ -25,18 +25,17 @@ final class CityDetailViewModel: CityDetailViewModelProtocol {
         guard let cityName = city?.name,
               let countryName = city?.countryName else { return }
         notify(.setLoading(true))
-        service.fetchPricesBy(city: cityName, country: countryName) { [weak self] result in
+        
+        service.fetch(from: .prices(cityName, countryName), responseType: PriceResponse.self) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let success):
-                let cityDetailPresentation = CityDetailPresentation(from: success)
-                notify(.showPriceDetails(cityDetailPresentation))
                 break
             case .failure(let failure):
                 break
             }
-            notify(.setLoading(false))
         }
+
     }
     
     private func notify(_ output: CityDetailViewModelOutput) {
