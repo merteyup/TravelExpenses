@@ -10,7 +10,7 @@ import Foundation
 
 protocol CoreDataServiceProtocol: AnyObject {
     func saveCitiesToCoreData(from cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void)
-    func removeCitiesFromCoreData(_ cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void)
+    func removeCitiesFromCoreData(_ remoteCities: [CityModel], existingCities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void)
     func fetchCitiesFromCoreData() -> [CityModel]?
   //  func updateCityOnCoreData(_ existingCity: CityModel, with newCityData: CityModel)
 }
@@ -26,13 +26,12 @@ class CoreDataService: CoreDataServiceProtocol {
     
     func saveCitiesToCoreData(from cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void) {
         let managedContext = self.context
-        let existingCities = fetchExistingCities()
+        let existingCities = fetchCitiesFromCoreData()
         
-        let existingCitiesDictionary = createUniqueExistingCitiesDictionary(from: existingCities)
+        let existingCitiesDictionary = createUniqueExistingCitiesDictionary(from: existingCities ?? [])
         
         for cityData in cities {
             let cityID = Int(cityData.cityId)
-            
             if let existingCity = existingCitiesDictionary[cityID] {
                 updateCityOnCoreData(existingCity, with: cityData)
             } else {
@@ -46,28 +45,26 @@ class CoreDataService: CoreDataServiceProtocol {
             }
         }
         
-
-        let existingCityKeys = Set(existingCitiesDictionary.keys)
-        let cityIds = Set(cities.map { Int($0.cityId) })
-        let idsToRemove = existingCityKeys.subtracting(cityIds)
-        removeOldCities(withIDs: idsToRemove, from: existingCitiesDictionary, managedContext: managedContext)
-        
-        saveContext(managedContext, completion: completion)
+        guard let existingCities = existingCities,
+              existingCities.count != cities.count else { return }
+        removeCitiesFromCoreData(cities, existingCities: existingCities) { _ in }
     }
     
     
-    func removeCitiesFromCoreData(_ cities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void) {
+    func removeCitiesFromCoreData(_ remoteCities: [CityModel], existingCities: [CityModel], completion: @escaping (Result<Void, Error>) -> Void) {
         let managedContext = self.context
-        let cityIDsToRemove = Set(cities.map { $0.cityId })
         
-        let fetchRequest: NSFetchRequest<CityModel> = CityModel.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "cityId IN %@", cityIDsToRemove)
+        let remoteCityIDs = Set(remoteCities.map { $0.cityId })
+        
+        let citiesToRemove = existingCities.filter { city in
+            !remoteCityIDs.contains(city.cityId)
+        }
+        
+        for city in citiesToRemove {
+            managedContext.delete(city)
+        }
         
         do {
-            let citiesToRemove = try managedContext.fetch(fetchRequest)
-            for city in citiesToRemove {
-                managedContext.delete(city)
-            }
             try managedContext.save()
             completion(.success(()))
         } catch {
@@ -129,58 +126,11 @@ class CoreDataService: CoreDataServiceProtocol {
 
 //MARK: - SaveCitiesToCoreData Functions
 extension CoreDataService {
-    private func fetchExistingCities() -> [CityModel] {
-        let cityFetchRequest: NSFetchRequest<CityModel> = CityModel.fetchRequest()
-        let sortByName = NSSortDescriptor(key: #keyPath(CityModel.name), ascending: true)
-        cityFetchRequest.sortDescriptors = [sortByName]
-        do {
-            return try context.fetch(cityFetchRequest)
-        } catch let error as NSError {
-            print("Fetch error: \(error) description: \(error.userInfo)")
-            return []
-        }
-    }
-
     private func createUniqueExistingCitiesDictionary(from existingCities: [CityModel]) -> [Int: CityModel] {
         return Dictionary(
             grouping: existingCities,
             by: { Int($0.cityId) }
         ).compactMapValues { $0.first }
-    }
-
-    private func processIncomingCities(_ cities: [CityModel], uniqueExistingCities: [Int: CityModel], managedContext: NSManagedObjectContext) -> Set<Int> {
-        var idsToRemove = Set(uniqueExistingCities.keys)
-        
-        for cityData in cities {
-            if let existingCity = uniqueExistingCities[Int(cityData.cityId)] {
-             //   updateCityOnCoreData(existingCity, with: cityData)
-                idsToRemove.remove(Dictionary<Int, CityModel>.Keys.Element(cityData.cityId))
-            } else {
-                let city = CityModel(context: managedContext)
-                city.cityId = cityData.cityId
-                city.name = cityData.name
-                city.countryName = cityData.countryName
-                city.latitude = cityData.latitude
-                city.longitude = cityData.longitude
-                city.stateCode = cityData.stateCode
-            }
-        }
-        return idsToRemove
-    }
-
-    private func removeOldCities(withIDs idsToRemove: Set<Int>, from uniqueExistingCities: [Int: CityModel], managedContext: NSManagedObjectContext) {
-        let fetchRequest: NSFetchRequest<CityModel> = CityModel.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "cityId IN %@", idsToRemove)
-        
-        do {
-            let citiesToRemove = try managedContext.fetch(fetchRequest)
-            for city in citiesToRemove {
-                managedContext.delete(city)
-            }
-            try managedContext.save()
-        } catch {
-            print("Error removing cities: \(error)")
-        }
     }
 
     private func saveContext(_ context: NSManagedObjectContext, completion: @escaping (Result<Void, Error>) -> Void) {
