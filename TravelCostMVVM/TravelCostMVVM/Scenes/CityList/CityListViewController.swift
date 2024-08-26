@@ -26,6 +26,14 @@ final class CityListViewController: UIViewController {
     
     private let tableView = UITableView()
     private let searchBar = UISearchBar()
+    private let emptyResultLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.numberOfLines = 0
+        label.isHidden = true
+        label.textAlignment = .center
+        return label
+    }()
     
     // MARK: - Lifecycle
     
@@ -47,8 +55,9 @@ final class CityListViewController: UIViewController {
         tableView.register(CityCell.self, forCellReuseIdentifier: "CityCell")
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .red
         view.addSubview(tableView)
+        
+        view.addSubview(emptyResultLabel)
     }
     
     private func setupConstraints() {
@@ -60,6 +69,12 @@ final class CityListViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        emptyResultLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.centerY)
+            make.horizontalEdges.equalTo(view.snp.horizontalEdges).inset(20)
         }
     }
     
@@ -146,9 +161,15 @@ extension CityListViewController: CityListViewModelDelegate {
         case .showCityList(let cities):
             self.cities = cities
             tableView.reloadData()
-        case .showEmptyList(_):
-            // TODO: Add a label to show empty list warning or show UIAlertController to notify user.
+        case .showEmptyList(let message):
+            showEmptyListView(with: message)
             break
         }
+    }
+    
+    private func showEmptyListView(with message: (String)) {
+        emptyResultLabel.text = message
+        searchBar.isHidden = true
+        emptyResultLabel.isHidden = false
     }
 }
