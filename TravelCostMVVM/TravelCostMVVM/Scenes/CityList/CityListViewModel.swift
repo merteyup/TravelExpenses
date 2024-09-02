@@ -41,8 +41,12 @@ final class CityListViewModel: CityListViewModelProtocol {
                 }
                 self.notify(.setLoading(false))
             }, receiveValue: { citiesResponse in
-                self.notify(.showCityList(citiesResponse.cities))
-                self.saveCitiesToCoreData(cities: citiesResponse.cities)
+                self.cities = citiesResponse.cities.sorted(by: {
+                    ($0.name ?? "") < ($1.name ?? "")
+                })
+                
+                self.notify(.showCityList(self.cities))
+                self.saveCitiesToCoreData(cities: self.cities)
             })
             .store(in: &cancellables)
     }
