@@ -25,10 +25,10 @@ public struct City: Codable {
     }
 }
 
-public struct CitiesResponse: Codable {
-    public let cities: [City]
+public struct CitiesResponse: Decodable {
+    public let cities: [CityPresentation]
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case cities = "cities"
     }
 }

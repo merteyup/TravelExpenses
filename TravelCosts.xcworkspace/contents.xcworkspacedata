@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../.Trash/CityModel+CoreDataClass.swift">
+      location = "group:CityModel+CoreDataClass.swift">
    </FileRef>
    <FileRef
-      location = "group:/Users/eyupmert/Documents/TravelCosts/CityModel+CoreDataProperties.swift">
+      location = "group:CityModel+CoreDataProperties.swift">
    </FileRef>
    <FileRef
       location = "group:TravelCostMVVM/TravelCostMVVM.xcodeproj">

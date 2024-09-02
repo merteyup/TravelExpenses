@@ -2,7 +2,7 @@
 //  CityModel+CoreDataClass.swift
 //  
 //
-//  Created by Eyup Mert on 21.08.2024.
+//  Created by Eyup Mert on 2.09.2024.
 //
 //
 

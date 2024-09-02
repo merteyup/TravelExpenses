@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import NetworkingLayer
 
 final class CityListViewModel: CityListViewModelProtocol {
@@ -15,6 +16,7 @@ final class CityListViewModel: CityListViewModelProtocol {
     private let networkingService: NetworkingServiceProtocol
     private let coreDataService: CoreDataServiceProtocol
     private var cities: [CityPresentation] = []
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Init
     init(networkingService: NetworkingServiceProtocol,
@@ -24,26 +26,54 @@ final class CityListViewModel: CityListViewModelProtocol {
     }
     
     //MARK: - Delegate Functions
+
     func loadCities() {
         notify(.setLoading(true))
-        networkingService.fetch(from: .cities, responseType: CitiesResponse.self) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let success):
-                let cityPresentations = success.cities.map {
-                    cityResponse in CityPresentation(city: cityResponse
-                    )}.sorted(by: {$0.name < $1.name})
-                cities = cityPresentations
-                saveCitiesToCoreData(cities: cities)
-                let cityModels = coreDataService.fetchCitiesFromCoreData()
-                notify(.showCityList(cityPresentations))
-            case .failure:
-                fetchCitiesFromCoreData()
-                cities.isEmpty ? notify(.showEmptyList("The city list is empty. Please try again later.")) : notify(.showCityList(cities))
-                break
-            }
-            notify(.setLoading(false))
-        }
+        networkingService.fetch(from: .cities, responseType: CitiesResponse.self)
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+                switch completion {
+                case .finished:
+                    break
+                case .failure(_):
+                    self.fetchCitiesFromCoreData()
+                    break
+                }
+                self.notify(.setLoading(false))
+            }, receiveValue: { citiesResponse in
+                self.notify(.showCityList(citiesResponse.cities))
+                self.saveCitiesToCoreData(cities: citiesResponse.cities)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func saveCitiesToCoreData(cities: [CityPresentation]) {
+        coreDataService.saveCitiesToCoreData(from: cities)
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let self else { return }
+                switch completion {
+                case .finished:
+                    break
+                case .failure(_):
+                    self.fetchCitiesFromCoreData()
+                }
+            }, receiveValue: { _ in
+                
+            })
+            .store(in: &cancellables)
+    }
+    
+    func fetchCitiesFromCoreData() {
+        coreDataService.fetchCitiesFromCoreData()
+            .sink(receiveCompletion: { _ in }, receiveValue: { cities in
+                if cities.count > 0 {
+                    let cityPresentations = cities.compactMap { CityPresentation(cityModel: $0) }
+                    self.notify(.showCityList(cityPresentations))
+                } else {
+                    self.notify(.showEmptyList("There's no cities found on remote or local database. Please try again later."))
+                }
+            })
+            .store(in: &cancellables)
     }
     
     func selectCity(at index: Int) {
@@ -56,21 +86,4 @@ final class CityListViewModel: CityListViewModelProtocol {
         delegate?.handleViewModelOutput(output)
     }
     
-    //MARK: - Core Data
-    private func saveCitiesToCoreData(cities: [CityPresentation]) {
-        let cityModels = CityModel.from(cityPresentations: cities, context: AppDelegate.sharedAppDelegate.coreDataStack.managedContext)
-        coreDataService.saveCitiesToCoreData(from: cityModels) { _ in }
-    }
-    
-    @discardableResult
-    private func fetchCitiesFromCoreData() -> [CityPresentation] {
-        let cityModels = coreDataService.fetchCitiesFromCoreData()
-        cities.removeAll()
-        cityModels?.forEach({ cityModel in
-            let cityPresentation = CityPresentation(cityModel: cityModel)
-            cities.append(cityPresentation)
-        })
-        return cities
-    }
-   
 }

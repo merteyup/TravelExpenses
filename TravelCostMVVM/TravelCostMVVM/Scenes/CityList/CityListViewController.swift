@@ -82,10 +82,16 @@ final class CityListViewController: UIViewController {
         if searchText.isEmpty {
             filteredCities = cities
         } else {
-            filteredCities = cities.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            filteredCities = cities.filter { city in
+                if let name = city.name?.lowercased() {
+                    return name.contains(searchText.lowercased())
+                }
+                return false
+            }
         }
         tableView.reloadData()
     }
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -160,7 +166,9 @@ extension CityListViewController: CityListViewModelDelegate {
             bool ? view.showLoading() : view.hideLoading()
         case .showCityList(let cities):
             self.cities = cities
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         case .showEmptyList(let message):
             showEmptyListView(with: message)
             break
@@ -172,4 +180,6 @@ extension CityListViewController: CityListViewModelDelegate {
         searchBar.isHidden = true
         emptyResultLabel.isHidden = false
     }
+    
+    
 }

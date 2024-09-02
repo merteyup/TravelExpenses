@@ -9,15 +9,20 @@ import Foundation
 import CoreData
 
 extension CityModel {
-    static func from(cityPresentations: [CityPresentation],
-                     context: NSManagedObjectContext) -> [CityModel] {
-        return cityPresentations.map { presentation in
+    static func from(cityPresentations: [CityPresentation], context: NSManagedObjectContext) -> [CityModel] {
+        return cityPresentations.compactMap { presentation in
+            guard let cityId = presentation.cityId,
+                  let name = presentation.name,
+                  let countryName = presentation.countryName else {
+                return nil
+            }
+            
             let cityModel = CityModel(context: context)
-            cityModel.cityId = Int32(presentation.cityId)
-            cityModel.name = presentation.name
-            cityModel.countryName = presentation.countryName
-            cityModel.latitude = presentation.latitude
-            cityModel.longitude = presentation.longitude
+            cityModel.cityId = Int32(cityId)
+            cityModel.name = name
+            cityModel.countryName = countryName
+            cityModel.latitude = presentation.latitude ?? 0.0
+            cityModel.longitude = presentation.longitude ?? 0.0
             cityModel.stateCode = presentation.stateCode
             return cityModel
         }

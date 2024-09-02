@@ -13,7 +13,7 @@ protocol CityListViewModelProtocol: AnyObject {
     func selectCity(at index: Int)
 }
 
-enum CityListViewModelOutput: Equatable {
+enum CityListViewModelOutput {
     case updateTitle(String)
     case setLoading(Bool)
     case showCityList([CityPresentation])
