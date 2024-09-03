@@ -23,7 +23,6 @@ class CityDetailCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        backgroundColor = .yellow
         setupView()
         setupConstraints()
     }
@@ -51,12 +50,37 @@ class CityDetailCell: UITableViewCell {
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         for title in titles {
-            let label = UILabel()
-            label.font = .systemFont(ofSize: 14)
-            label.textColor = .black
-            label.numberOfLines = 0
-            label.text = title.itemName
-            stackView.addArrangedSubview(label)
+
+            let itemNameLabel = UILabel()
+            itemNameLabel.font = .boldSystemFont(ofSize: 16)
+            itemNameLabel.textColor = .black
+            itemNameLabel.numberOfLines = 1
+            itemNameLabel.text = title.itemName
+            stackView.addArrangedSubview(itemNameLabel)
+            
+
+            let valuesLabel = UILabel()
+            valuesLabel.font = .systemFont(ofSize: 14)
+            valuesLabel.textColor = .darkGray
+            valuesLabel.numberOfLines = 0
+            valuesLabel.text = formatValues(for: title)
+            stackView.addArrangedSubview(valuesLabel)
         }
+    }
+    
+    private func formatValues(for title: PricePresentation) -> String {
+        var values = [String]()
+        
+        if let min = title.min {
+            values.append("Min: \(min)")
+        }
+        if let avg = title.avg {
+            values.append("Avg: \(avg)")
+        }
+        if let max = title.max {
+            values.append("Max: \(max)")
+        }
+        
+        return values.joined(separator: " | ")
     }
 }
