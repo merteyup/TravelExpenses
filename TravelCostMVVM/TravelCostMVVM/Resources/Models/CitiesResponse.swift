@@ -32,3 +32,17 @@ public struct CitiesResponse: Decodable {
         case cities = "cities"
     }
 }
+
+extension City {
+    init?(presentation: CityPresentation) {
+        guard let cityId = presentation.cityId else {
+            return nil
+        }
+        self.cityId = cityId
+        self.cityName = presentation.name ?? ""
+        self.countryName = presentation.countryName ?? ""
+        self.lat = presentation.latitude ?? 0.0
+        self.lng = presentation.longitude ?? 0.0
+        self.stateCode = presentation.stateCode
+    }
+}

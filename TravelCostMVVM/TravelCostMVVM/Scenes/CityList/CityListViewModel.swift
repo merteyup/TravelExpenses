@@ -15,7 +15,7 @@ final class CityListViewModel: CityListViewModelProtocol {
     weak var delegate: CityListViewModelDelegate?
     private let networkingService: NetworkingServiceProtocol
     private let coreDataService: CoreDataServiceProtocol
-    private var cities: [CityPresentation] = []
+    private var cities: [City] = []
     private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Init
@@ -41,12 +41,11 @@ final class CityListViewModel: CityListViewModelProtocol {
                 }
                 self.notify(.setLoading(false))
             }, receiveValue: { citiesResponse in
-                self.cities = citiesResponse.cities.sorted(by: {
-                    ($0.name ?? "") < ($1.name ?? "")
-                })
                 
-                self.notify(.showCityList(self.cities))
-                self.saveCitiesToCoreData(cities: self.cities)
+                self.cities = citiesResponse.cities.compactMap { City(presentation: $0) }
+
+                self.notify(.showCityList(citiesResponse.cities))
+                self.saveCitiesToCoreData(cities: citiesResponse.cities)
             })
             .store(in: &cancellables)
     }
@@ -72,6 +71,7 @@ final class CityListViewModel: CityListViewModelProtocol {
             .sink(receiveCompletion: { _ in }, receiveValue: { cities in
                 if cities.count > 0 {
                     let cityPresentations = cities.compactMap { CityPresentation(cityModel: $0) }
+                    self.cities = cityPresentations.compactMap { City(presentation: $0) }
                     self.notify(.showCityList(cityPresentations))
                 } else {
                     self.notify(.showEmptyList("There's no cities found on remote or local database. Please try again later."))

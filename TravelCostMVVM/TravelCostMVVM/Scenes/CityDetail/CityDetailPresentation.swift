@@ -8,7 +8,7 @@
 import Foundation
 import NetworkingLayer
 
-final class CityDetailPresentation: Equatable {
+struct CityDetailPresentation: Equatable {
     let cityName: String?
     let countryName: String?
     let exchangeRate: [String: Double]?
@@ -16,30 +16,6 @@ final class CityDetailPresentation: Equatable {
     let exchangeRatesUpdatedTimestamp: Int?
     let prices: [PricePresentation]?
     let error: String?
-    
-    init(from response: PriceResponse) {
-        self.cityName = response.cityName
-        self.countryName = response.countryName
-        self.exchangeRate = response.exchangeRate
-        self.exchangeRatesUpdatedDate = response.exchangeRatesUpdated?.date
-        self.exchangeRatesUpdatedTimestamp = response.exchangeRatesUpdated?.timestamp
-        if let pricesArray = response.prices {
-            self.prices = pricesArray.compactMap { PricePresentation(from: $0) }
-        } else {
-            self.prices = []
-        }
-        self.error = response.error
-    }
-    
-    static func == (lhs: CityDetailPresentation, rhs: CityDetailPresentation) -> Bool {
-        return lhs.cityName == rhs.cityName &&
-        lhs.countryName == rhs.countryName &&
-        lhs.error == rhs.error &&
-        lhs.exchangeRatesUpdatedDate == rhs.exchangeRatesUpdatedDate &&
-        lhs.exchangeRate == rhs.exchangeRate &&
-        lhs.exchangeRatesUpdatedTimestamp == rhs.exchangeRatesUpdatedTimestamp &&
-        lhs.prices == rhs.prices
-    }
 }
 
 struct PricePresentation: Equatable {
@@ -53,17 +29,35 @@ struct PricePresentation: Equatable {
     let usdMax: String?
     let measure: String?
     let currencyCode: String?
-    
-    init(from price: Price) {
-        self.itemName = price.itemName
-        self.categoryName = price.categoryName
-        self.min = price.min
-        self.avg = price.avg
-        self.max = price.max
-        self.usdMin = price.usd?.min
-        self.usdAvg = price.usd?.avg
-        self.usdMax = price.usd?.max
-        self.measure = price.measure
-        self.currencyCode = price.currencyCode
+}
+
+extension CityDetailPresentation {
+    init(city: City, cityDetails: PriceResponse.CityDetails?) {
+        self.init(
+            cityName: city.cityName,
+            countryName: city.countryName,
+            exchangeRate: cityDetails?.exchangeRate,
+            exchangeRatesUpdatedDate: cityDetails?.exchangeRatesUpdatedDate,
+            exchangeRatesUpdatedTimestamp: cityDetails?.exchangeRatesUpdatedTimestamp,
+            prices: cityDetails?.prices?.map { PricePresentation(price: $0) },
+            error: cityDetails?.error
+        )
+    }
+}
+
+extension PricePresentation {
+    init(price: Price) {
+        self.init(
+            itemName: price.itemName,
+            categoryName: price.categoryName,
+            min: price.min,
+            avg: price.avg,
+            max: price.max,
+            usdMin: price.usd?.min,
+            usdAvg: price.usd?.avg,
+            usdMax: price.usd?.max,
+            measure: price.measure,
+            currencyCode: price.currencyCode
+        )
     }
 }

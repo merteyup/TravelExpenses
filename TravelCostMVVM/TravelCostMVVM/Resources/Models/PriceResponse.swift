@@ -27,7 +27,17 @@ public struct PriceResponse: Decodable {
         case prices
         case error
     }
+
+    public struct CityDetails: Decodable {
+        let exchangeRate: [String: Double]?
+        let exchangeRatesUpdatedDate: String?
+        let exchangeRatesUpdatedTimestamp: Int?
+        let prices: [Price]?
+        let error: String?
+    }
 }
+
+
 
 public struct ExchangeRatesUpdated: Decodable {
    public let date: String

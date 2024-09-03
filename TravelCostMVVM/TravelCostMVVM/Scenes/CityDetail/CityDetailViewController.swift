@@ -8,9 +8,6 @@
 import UIKit
 import SnapKit
 
-import UIKit
-import SnapKit
-
 class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
     
     var viewModel: CityDetailViewModelProtocol! {
@@ -20,23 +17,21 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
     }
     
     private let tableView = UITableView()
-    private var presentation: CityDetailPresentation?
-
-
+    private var presentation: CityDetailPresentation? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .purple
-
-        
-        setupConstraints()
         viewModel.load()
+        setupConstraints()
     }
     
     func showDetail(_ presentation: CityDetailPresentation) {
+        self.presentation = presentation
+        tableView.dataSource = self
         tableView.register(EmptyCell.self, forCellReuseIdentifier: "EmptyCell")
         tableView.register(CityDetailCell.self, forCellReuseIdentifier: "CityDetailCell")
         tableView.register(CityDetailHeaderCell.self, forCellReuseIdentifier: "CityDetailHeaderCell")
-        tableView.dataSource = self
         tableView.backgroundColor = .red
         view.addSubview(tableView)
     }
@@ -54,7 +49,6 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
         case .setLoading(let bool):
             bool ? view.showLoading() : view.hideLoading()
         case .showPriceDetails(let cityDetailPresentation):
-            presentation = cityDetailPresentation
             tableView.reloadData()
             break
         }
@@ -65,30 +59,29 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
 extension CityDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = presentation?.prices?.count else { return 1 }
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CityDetailCell", for: indexPath) as! CityDetailCell
-
+        
         if let prices = presentation?.prices {
             cell.configure(withTitles: prices)
         }
         
         return cell
-
         
-    //    if let count = presentation?.prices?.count {
-    //        let cell = tableView.dequeueReusableCell(withIdentifier: "CityDetailCell", for: indexPath) as! //CityDetailCell
-    //      //  cell.configure(with: city)
-    //        return cell
-    //    } else {
-    //        let emptyCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) as! EmptyCell
-//
-    //        return emptyCell
-    //    }
+        
+     //   if let count = presentation?.prices?.count {
+     //       let cell = tableView.dequeueReusableCell(withIdentifier: "CityDetailCell", for: indexPath) as! CityDetailCell
+     //     //  cell.configure(with: city)
+     //       return cell
+     //   } else {
+     //       let emptyCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) as! EmptyCell
+     //
+     //       return emptyCell
+     //   }
     }
     
 }

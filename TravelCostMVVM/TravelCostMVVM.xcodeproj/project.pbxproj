@@ -84,7 +84,6 @@
 		C4DA8D7E2C74A2D30064C472 /* CityList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CityList.storyboard; sourceTree = "<group>"; };
 		C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewModel.swift; sourceTree = "<group>"; };
 		C4DA8D852C74A40F0064C472 /* NetworkingLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NetworkingLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4DA8D9D2C74B7670064C472 /* CityPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityPresentation.swift; sourceTree = "<group>"; };
 		C4DA8DA22C74BE3E0064C472 /* CityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		C4DA8DA52C74CFA50064C472 /* UIView+LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LoadingIndicator.swift"; sourceTree = "<group>"; };
 		C4DA8DAA2C74D6E80064C472 /* CityDetailPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailPresentation.swift; sourceTree = "<group>"; };
@@ -207,7 +206,6 @@
 			children = (
 				C4DA8D7E2C74A2D30064C472 /* CityList.storyboard */,
 				C4DA8DA22C74BE3E0064C472 /* CityCell.swift */,
-				C4DA8D9D2C74B7670064C472 /* CityPresentation.swift */,
 				C4DA8D7C2C74A2CB0064C472 /* CityListContracts.swift */,
 				C4DA8D802C74A2EB0064C472 /* CityListViewModel.swift */,
 				C4DA8D772C74A2AB0064C472 /* CityListViewController.swift */,

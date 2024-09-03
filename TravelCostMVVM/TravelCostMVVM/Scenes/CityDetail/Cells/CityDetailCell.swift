@@ -23,6 +23,7 @@ class CityDetailCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        backgroundColor = .yellow
         setupView()
         setupConstraints()
     }
