@@ -20,6 +20,7 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
     private let tableView = UITableView()
     private let mapView = MKMapView()
     private var presentation: CityDetailPresentation? = nil
+    private var errorMessage = "There's no info found. Check your internet connection or application usage limit."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,7 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(mapView.snp.bottom)
+            make.top.equalTo(mapView.snp.bottom).offset(24)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -84,6 +85,9 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
         case .showPriceDetails(_):
             tableView.reloadData()
             break
+        case .apiLimitExceeded(let message):
+            errorMessage = message
+            tableView.reloadData()
         }
     }
     
@@ -101,7 +105,7 @@ extension CityDetailViewController: UITableViewDataSource {
             return cell
         } else {
             let emptyCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) as! EmptyCell
-            emptyCell.configure(with: "There's no info found. Check your internet connection or application usage limit.")
+            emptyCell.configure(with: errorMessage)
             tableView.separatorStyle = .none
             return emptyCell
         }

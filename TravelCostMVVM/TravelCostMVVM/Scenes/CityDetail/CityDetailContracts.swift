@@ -16,6 +16,7 @@ enum CityDetailViewModelOutput: Equatable {
     case updateTitle(String)
     case setLoading(Bool)
     case showPriceDetails(CityDetailPresentation)
+    case apiLimitExceeded(String)
 }
 
 

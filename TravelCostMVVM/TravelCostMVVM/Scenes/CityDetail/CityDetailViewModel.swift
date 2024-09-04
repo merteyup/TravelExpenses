@@ -29,7 +29,14 @@ final class CityDetailViewModel: CityDetailViewModelProtocol {
     
     private func fetchCityDetails(city: City) {
         service.fetch(from: .prices(city.cityName, city.countryName), responseType: PriceResponse.CityDetails.self)
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let self else { return }
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    handleAFFetchError(error: error)
+                }
             }, receiveValue: { [weak self] cityDetails in
                 guard let self = self else { return }
                 self.presentation = CityDetailPresentation(city: city, cityDetails: cityDetails)
@@ -37,6 +44,12 @@ final class CityDetailViewModel: CityDetailViewModelProtocol {
                 notify(.showPriceDetails(presentation))
             })
             .store(in: &cancellables)
+    }
+    
+    private func handleAFFetchError(error: Error?) {
+        if let customError = error as? Errors, customError == .apiLimitExceeded {
+            self.notify(.apiLimitExceeded("Maximum API usage limit is exceeded. Please try again later."))
+        }
     }
     
     private func notify(_ output: CityDetailViewModelOutput) {
