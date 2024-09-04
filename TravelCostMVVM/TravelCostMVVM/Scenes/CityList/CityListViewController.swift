@@ -104,7 +104,6 @@ extension CityListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath) as! CityCell
         let city = filteredCities[indexPath.row]
-        cell.backgroundColor = .yellow
         cell.configure(with: city)
         return cell
     }
@@ -177,8 +176,8 @@ extension CityListViewController: CityListViewModelDelegate {
     
     private func showEmptyListView(with message: (String)) {
         emptyResultLabel.text = message
-        searchBar.isHidden = true
         emptyResultLabel.isHidden = false
+        searchBar.isHidden = true
     }
     
     

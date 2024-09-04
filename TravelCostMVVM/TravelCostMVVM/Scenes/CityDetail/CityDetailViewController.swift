@@ -32,7 +32,6 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
         tableView.register(EmptyCell.self, forCellReuseIdentifier: "EmptyCell")
         tableView.register(CityDetailCell.self, forCellReuseIdentifier: "CityDetailCell")
         tableView.register(CityDetailHeaderCell.self, forCellReuseIdentifier: "CityDetailHeaderCell")
-        tableView.backgroundColor = .red
         view.addSubview(tableView)
     }
     
@@ -48,7 +47,7 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
             title = string
         case .setLoading(let bool):
             bool ? view.showLoading() : view.hideLoading()
-        case .showPriceDetails(let cityDetailPresentation):
+        case .showPriceDetails(_):
             tableView.reloadData()
             break
         }
@@ -57,31 +56,20 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
 }
 
 extension CityDetailViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CityDetailCell", for: indexPath) as! CityDetailCell
-        
-        if let prices = presentation?.prices {
-            cell.configure(withTitles: prices)
+        if let count = presentation?.prices?.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CityDetailCell", for: indexPath) as! CityDetailCell
+            if let prices = presentation?.prices { cell.configure(withTitles: prices) }
+            return cell
+        } else {
+            let emptyCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) as! EmptyCell
+            emptyCell.configure(with: "There's no info found. Check your internet connection or application usage limit.")
+            tableView.separatorStyle = .none
+            return emptyCell
         }
-        
-        return cell
-        
-        
-     //   if let count = presentation?.prices?.count {
-     //       let cell = tableView.dequeueReusableCell(withIdentifier: "CityDetailCell", for: indexPath) as! CityDetailCell
-     //     //  cell.configure(with: city)
-     //       return cell
-     //   } else {
-     //       let emptyCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) as! EmptyCell
-     //
-     //       return emptyCell
-     //   }
     }
-    
 }

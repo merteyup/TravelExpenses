@@ -17,6 +17,7 @@ class CityDetailCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         setupView()
         setupConstraints()
     }
@@ -31,7 +32,7 @@ class CityDetailCell: UITableViewCell {
     
     private func setupView() {
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 12
         stackView.alignment = .fill
         stackView.distribution = .fill
         
@@ -54,10 +55,9 @@ class CityDetailCell: UITableViewCell {
             let itemNameLabel = UILabel()
             itemNameLabel.font = .boldSystemFont(ofSize: 16)
             itemNameLabel.textColor = .black
-            itemNameLabel.numberOfLines = 1
+            itemNameLabel.numberOfLines = 0
             itemNameLabel.text = title.itemName
             stackView.addArrangedSubview(itemNameLabel)
-            
 
             let valuesLabel = UILabel()
             valuesLabel.font = .systemFont(ofSize: 14)
@@ -65,6 +65,9 @@ class CityDetailCell: UITableViewCell {
             valuesLabel.numberOfLines = 0
             valuesLabel.text = formatValues(for: title)
             stackView.addArrangedSubview(valuesLabel)
+            
+            let separator = UIView()
+            stackView.addArrangedSubview(separator)
         }
     }
     
@@ -79,6 +82,10 @@ class CityDetailCell: UITableViewCell {
         }
         if let max = title.max {
             values.append("Max: \(max)")
+        }
+        
+        if let currencyCode = title.currencyCode {
+            values.append(" \(currencyCode)")
         }
         
         return values.joined(separator: " | ")
