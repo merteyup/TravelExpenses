@@ -17,6 +17,8 @@ final class CityListViewModel: CityListViewModelProtocol {
     private let coreDataService: CoreDataServiceProtocol
     private var cities: [City] = []
     private var cancellables = Set<AnyCancellable>()
+    private let apiLimitExceededSubject = PassthroughSubject<Void, Never>()
+  
     
     //MARK: - Init
     init(networkingService: NetworkingServiceProtocol,
@@ -35,9 +37,8 @@ final class CityListViewModel: CityListViewModelProtocol {
                 switch completion {
                 case .finished:
                     break
-                case .failure(_):
-                    self.fetchCitiesFromCoreData()
-                    break
+                case .failure(let error):
+                    self.fetchCitiesFromCoreData(according: error)
                 }
                 self.notify(.setLoading(false))
             }, receiveValue: { citiesResponse in
@@ -66,18 +67,27 @@ final class CityListViewModel: CityListViewModelProtocol {
             .store(in: &cancellables)
     }
     
-    func fetchCitiesFromCoreData() {
+    func fetchCitiesFromCoreData(according error: Error? = nil) {
         coreDataService.fetchCitiesFromCoreData()
             .sink(receiveCompletion: { _ in }, receiveValue: { cities in
-                if cities.count > 0 {
-                    let cityPresentations = cities.compactMap { CityPresentation(cityModel: $0) }
-                    self.cities = cityPresentations.compactMap { City(presentation: $0) }
-                    self.notify(.showCityList(cityPresentations))
-                } else {
-                    self.notify(.showEmptyList("There's no cities found on remote or local database. Please try again later."))
+                guard !cities.isEmpty else {
+                    self.handleEmptyCities(error: error)
+                    return
                 }
+
+                let cityPresentations = cities.map { CityPresentation(cityModel: $0) }
+                self.cities = cityPresentations.compactMap { City(presentation: $0) }
+                self.notify(.showCityList(cityPresentations))
             })
             .store(in: &cancellables)
+    }
+
+    private func handleEmptyCities(error: Error?) {
+        if let customError = error as? Errors, customError == .apiLimitExceeded {
+            self.notify(.apiLimitExceeded("Maximum API usage limit is exceeded. Please try again later."))
+        } else {
+            self.notify(.showEmptyList("There are no cities found on the remote or local database. Please try again later."))
+        }
     }
     
     func selectCity(at index: Int) {

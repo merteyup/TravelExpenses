@@ -171,6 +171,9 @@ extension CityListViewController: CityListViewModelDelegate {
         case .showEmptyList(let message):
             showEmptyListView(with: message)
             break
+        case .apiLimitExceeded(let message):
+            showEmptyListView(with: message)
+            break
         }
     }
     
@@ -179,6 +182,4 @@ extension CityListViewController: CityListViewModelDelegate {
         emptyResultLabel.isHidden = false
         searchBar.isHidden = true
     }
-    
-    
 }

@@ -29,14 +29,7 @@ final class CityDetailViewModel: CityDetailViewModelProtocol {
     
     private func fetchCityDetails(city: City) {
         service.fetch(from: .prices(city.cityName, city.countryName), responseType: PriceResponse.CityDetails.self)
-            .sink(receiveCompletion: { [weak self] completion in
-                guard let self = self else { return }
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let _):
-                    break
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] cityDetails in
                 guard let self = self else { return }
                 self.presentation = CityDetailPresentation(city: city, cityDetails: cityDetails)

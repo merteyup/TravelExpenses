@@ -7,6 +7,14 @@
 
 import Foundation
 
+public struct CitiesResponse: Decodable {
+    public let cities: [CityPresentation]
+    
+    public enum CodingKeys: String, CodingKey {
+        case cities = "cities"
+    }
+}
+
 public struct City: Codable {
    public let cityId: Int
    public let cityName: String
@@ -22,14 +30,6 @@ public struct City: Codable {
         case lat
         case lng
         case stateCode = "state_code"
-    }
-}
-
-public struct CitiesResponse: Decodable {
-    public let cities: [CityPresentation]
-    
-    public enum CodingKeys: String, CodingKey {
-        case cities = "cities"
     }
 }
 

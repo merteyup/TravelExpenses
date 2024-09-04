@@ -18,6 +18,7 @@ enum CityListViewModelOutput {
     case setLoading(Bool)
     case showCityList([CityPresentation])
     case showEmptyList(String)
+    case apiLimitExceeded(String)
 }
 
 enum CityListViewRoute {
