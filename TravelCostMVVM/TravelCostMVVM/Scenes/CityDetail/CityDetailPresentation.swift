@@ -16,6 +16,8 @@ struct CityDetailPresentation: Equatable {
     let exchangeRatesUpdatedTimestamp: Int?
     let prices: [PricePresentation]?
     let error: String?
+    let lat: Double?
+    let lng: Double?
 }
 
 struct PricePresentation: Equatable {
@@ -40,7 +42,9 @@ extension CityDetailPresentation {
             exchangeRatesUpdatedDate: cityDetails?.exchangeRatesUpdatedDate,
             exchangeRatesUpdatedTimestamp: cityDetails?.exchangeRatesUpdatedTimestamp,
             prices: cityDetails?.prices?.map { PricePresentation(price: $0) },
-            error: cityDetails?.error
+            error: cityDetails?.error,
+            lat: city.lat,
+            lng: city.lng
         )
     }
 }

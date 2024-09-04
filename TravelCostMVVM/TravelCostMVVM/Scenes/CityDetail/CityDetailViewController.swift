@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import MapKit
 
 class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
     
@@ -17,27 +18,60 @@ class CityDetailViewController: UIViewController, CityDetailViewModelDelegate {
     }
     
     private let tableView = UITableView()
+    private let mapView = MKMapView()
     private var presentation: CityDetailPresentation? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .purple
         viewModel.load()
+        configureTableView()
         setupConstraints()
+    }
+   
+    private func configureTableView() {
+        tableView.dataSource = self
+        tableView.register(EmptyCell.self, 
+                           forCellReuseIdentifier: "EmptyCell")
+        tableView.register(CityDetailCell.self, 
+                           forCellReuseIdentifier: "CityDetailCell")
+        tableView.register(CityDetailHeaderCell.self, 
+                           forCellReuseIdentifier: "CityDetailHeaderCell")
+    }
+    
+    private func setupConstraints() {
+        view.addSubview(mapView)
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(200)
+        }
+        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(mapView.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
     }
     
     func showDetail(_ presentation: CityDetailPresentation) {
         self.presentation = presentation
-        tableView.dataSource = self
-        tableView.register(EmptyCell.self, forCellReuseIdentifier: "EmptyCell")
-        tableView.register(CityDetailCell.self, forCellReuseIdentifier: "CityDetailCell")
-        tableView.register(CityDetailHeaderCell.self, forCellReuseIdentifier: "CityDetailHeaderCell")
-        view.addSubview(tableView)
+        configureMapView(presentation)
     }
     
-    private func setupConstraints() {
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+    private func configureMapView(_ presentation: CityDetailPresentation) {
+        if let latitude = presentation.lat, let longitude = presentation.lng {
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, 
+                                                    longitude: longitude)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = presentation.cityName
+            
+            mapView.addAnnotation(annotation)
+            
+            let region = MKCoordinateRegion(center: coordinate, 
+                                            latitudinalMeters: 20000,
+                                            longitudinalMeters: 20000)
+            mapView.setRegion(region, animated: true)
         }
     }
     
