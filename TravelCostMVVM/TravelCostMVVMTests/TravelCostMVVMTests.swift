@@ -6,31 +6,53 @@
 //
 
 import XCTest
+import NetworkingLayer
+import Combine
 @testable import TravelCostMVVM
 
 final class TravelCostMVVMTests: XCTestCase {
+    
+    private var view: MockView!
+    private var viewModel: CityListViewModel!
+    private var service: MockNetworkingService!
+    private var coreData: MockCoreDataService!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        service = MockNetworkingService(mockResponse: mockCitiesResponse)
+        coreData = MockCoreDataService(mockCities: mockCities)
+        
+        viewModel = CityListViewModel(networkingService: service,
+                                      coreDataService: coreData)
+        
+        view = MockView()
+        viewModel.delegate = view
+
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func test_CityListViewControllerOutputs() throws {
+        // Given
+        let city1 = try ResourceLoader.loadCity(resource: .city1)
+        let city2 = try ResourceLoader.loadCity(resource: .city2)
+        _ = service.mockData.append(city1, city2)
+                
+        // When
+        viewModel.loadCities()
+        
+        // Then
+        switch try view.outputs.element(at: 0) {
+        case .updateTitle(_):
+            break
+        default:
+            XCTFail("First output should be updateTitle")
         }
+        
+        XCTAssertEqual(try view.outputs.element(at: 1), .setLoading(true))
+        
+        let expectedCities = [city1, city2].map({ CityPresentation(city: $0)})
+        XCTAssertEqual(try view.outputs.element(at: 2), .showCityList(expectedCities))
+        
+        XCTAssertEqual(try view.outputs.element(at: 3), .setLoading(false))
     }
-
 }

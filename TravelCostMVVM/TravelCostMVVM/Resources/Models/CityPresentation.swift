@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CityPresentation: Decodable {
+public struct CityPresentation: Decodable, Equatable {
     let cityId: Int?
     let name: String?
     let countryName: String?
