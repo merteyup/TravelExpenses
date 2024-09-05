@@ -30,6 +30,7 @@ final class CityListViewModel: CityListViewModelProtocol {
     //MARK: - Delegate Functions
 
     func loadCities() {
+        notify(.updateTitle("Cities"))
         notify(.setLoading(true))
         networkingService.fetch(from: .cities, responseType: CitiesResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
@@ -45,7 +46,7 @@ final class CityListViewModel: CityListViewModelProtocol {
                 
                 self.cities = citiesResponse.cities.compactMap { City(presentation: $0) }
 
-                self.notify(.showCityList(citiesResponse.cities))
+                self.notify(.showCityList(citiesResponse.cities.sorted { $0.name ?? "" < $1.name ?? "" }))
                 self.saveCitiesToCoreData(cities: citiesResponse.cities)
             })
             .store(in: &cancellables)

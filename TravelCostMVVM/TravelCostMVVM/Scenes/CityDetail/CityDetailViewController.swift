@@ -99,7 +99,7 @@ extension CityDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let count = presentation?.prices?.count {
+        if (presentation?.prices?.count) != nil {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CityDetailCell", for: indexPath) as! CityDetailCell
             if let prices = presentation?.prices { cell.configure(withTitles: prices) }
             return cell
