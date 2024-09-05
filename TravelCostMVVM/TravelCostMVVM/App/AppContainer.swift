@@ -13,6 +13,7 @@ final class AppContainer {
     let router: AppRouter
     let service: NetworkingServiceProtocol
     let coreData: CoreDataServiceProtocol
+    let globalInflation = 4.0
 
     init(managedContext: NSManagedObjectContext) {
         self.router = AppRouter()

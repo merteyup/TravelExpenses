@@ -74,14 +74,19 @@ class CityDetailCell: UITableViewCell {
     private func formatValues(for title: PricePresentation) -> String {
         var values = [String]()
         
+        let isTurkey = title.currencyCode == "TRY"
+
         if let min = title.min {
-            values.append("Min: \(min)")
+            let price = isTurkey ? min.priceMultiplier() : min
+            values.append("Min: \(price)")
         }
         if let avg = title.avg {
-            values.append("Avg: \(avg)")
+            let price = isTurkey ? avg.priceMultiplier() : avg
+            values.append("Avg: \(price)")
         }
         if let max = title.max {
-            values.append("Max: \(max)")
+            let price = isTurkey ? max.priceMultiplier() : max
+            values.append("Max: \(price)")
         }
         
         if let currencyCode = title.currencyCode {
